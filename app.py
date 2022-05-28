@@ -7,6 +7,9 @@ from flask import Flask, jsonify, request
 # en una variable llamada app.
 app = Flask(__name__)
 
+# Tamaño al que se va a ajustar las imagenes
+SIZE = (32, 32)
+
 # Ruta del index
 @app.route('/')
 def index():
@@ -33,7 +36,8 @@ def predict():
 
 # Funcion que muestra la imagen recibida en binario
 def show_img(image_b: bytes) -> None:
-    image = Image.open(io.BytesIO(image_b))
+    image = Image.open(io.BytesIO(image_b))\
+        .resize(SIZE)
     image.show()
 
 # Funcion que recibe la imagen en base64
